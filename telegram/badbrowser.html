@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" style="display:block; overflow: auto; background: #f8f8f8;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>텔레그램 웹</title>
+
+  <!-- build:css css/app.css -->
+  <link rel="stylesheet" href="vendor/angular/angular-csp.css"/>
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="css/app.css"/>
+  <!-- endbuild -->
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+</head>
+<body class="non_osx is_1x">
+
+
+  <div class="tg_page_head" style="clear: both;">
+    <div class="navbar navbar-static-top  navbar-inverse navbar_peer_not_selected" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header pull-left">
+          <a class="navbar-brand" href="index.html"><span class="tg_head_logo"></span></a>
+        </div>
+
+        <div class="navbar-menu pull-right">
+
+          <ul class="nav navbar-nav navbar-right" style="margin: 0;">
+            <li ng-if="!isLoggedIn"><a href="https://github.com/zhukov/webogram" target="_blank">About</a></li>
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="welcome_form" style="padding-bottom: 50px; clear: both;">
+    <img class="welcome_logo" src="img/decentralization.png"/>
+
+    <h3 class="welcome_header"><strong>텔레그램 웹</strong></h3>
+
+    <!-- <div class="welcome_text">
+      <p>This is an unofficial web-client for the <strong>Telegram Messenger</strong>.</p>
+      <p>It's still an <strong>alpha-version</strong> and may not be 200% reliable</p>
+    </div> -->
+
+    <div class="bad_browser_wrap">
+      
+      <h2>구버전 브라우저를 사용하고 계시군요.</h2>
+
+      <div class="bad_browser_text">
+        <p>
+          죄송합니다! 사용중이신 웹 브라우저는<strong>텔레그램 웹</strong>을 사용하기에 너무 오래되었습니다.<br/>
+         MTProto 안전 메시징 프로토콜을 사용하기 위해서는 HTML5 지원이 꼭 필요합니다.
+        </p>
+        <p>
+          안타깝게도, 사용중이신 브라우저는 HTML5를 지원하지 않눈군요.<br/>
+          웹 브라우저를 업데이트한 후 다시 만나요! :)
+        </p>
+      </div>
+
+
+      <a class="btn btn-primary btn-lg pull-right" href="//firefox.com" target="_blank">Mozilla Firefox 다운로드</a>
+      <a class="btn btn-primary btn-lg" href="//google.com/chrome" target="_blank">Google Chrome 다운로드</a>
+
+    </div>
+
+  </div>
+
+  <div class="welcome_footer">
+    <div class="welcome_cards_wrap clearfix">
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 col-sm-4" style="width: 33.33333333%; float: left;">
+            <div class="welcome_footer_card_wrap row">
+              <div class="welcome_footer_card welcome_footer_card_messaging"></div>
+              <h4>빠른 메시징</h4>
+              <div class="welcome_footer_card_lead">데스크탑 컴퓨터에서 이모티콘과 함께 빠르게 메시지를 보내세요.</div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4" style="width: 33.33333333%; float: left;">
+            <div class="welcome_footer_card_wrap">
+              <div class="welcome_footer_card welcome_footer_card_filesharing"></div>
+              <h4>쉬운 파일 공유</h4>
+              <div class="welcome_footer_card_lead">어떤 파일이든지 드래그 앤 드롭으로 쉽게 공유하세요.</div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4" style="width: 33.33333333%; float: left;">
+            <div class="welcome_footer_card_wrap">
+              <div class="welcome_footer_card welcome_footer_card_powerful"></div>
+              <h4>강력한 도구</h4>
+              <div class="welcome_footer_card_lead">미디어 종류별로 모아보고 개인화 알림을 설정하세요.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  
+
+</body>
+</html>
