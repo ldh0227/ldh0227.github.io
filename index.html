@@ -31,15 +31,21 @@
     color:var(--ink); font-family:var(--sans); line-height:1.65;
   }
   .bar { height:4px; background:linear-gradient(90deg, var(--wine), var(--wine-dark)); }
-  main { max-width:720px; margin:0 auto; padding:56px 24px 40px; }
-  /* header */
+  main { max-width:720px; margin:0 auto; padding:40px 24px 40px; }
+  .langbar { display:flex; justify-content:flex-end; margin-bottom:12px; }
+  .langbar button {
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; cursor:pointer;
+    padding:5px 12px; border:1px solid rgba(47,52,58,0.25); background:transparent; color:var(--dim);
+  }
+  .langbar button:first-child { border-radius:6px 0 0 6px; }
+  .langbar button:last-child { border-radius:0 6px 6px 0; border-left:none; }
+  .langbar button.on { background:var(--wine); border-color:var(--wine-dark); color:#f4f5f7; }
   .head { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
   img.avatar { width:104px; height:104px; border-radius:50%; border:2px solid var(--wine); box-shadow:0 4px 14px rgba(47,52,58,0.18); }
   .who h1 { font-size:1.85rem; letter-spacing:-0.02em; line-height:1.2; }
   .who .handle { font-family:var(--mono); color:var(--wine); font-size:0.95rem; }
   .who .role { margin-top:6px; color:var(--dim); font-size:0.95rem; }
   .who .role b { color:var(--wine); font-weight:600; }
-  /* terminal card */
   .term {
     margin-top:28px; background:var(--term-bg); color:var(--term-ink);
     border-radius:10px; border:1px solid rgba(47,52,58,0.4);
@@ -49,9 +55,7 @@
   }
   .term .p { color:var(--wine-light); }
   .term .ok { color:#9fb4c7; }
-  .term .out { color:var(--term-ink); }
   .term .dim { color:#7d858e; }
-  /* sections */
   section { margin-top:34px; }
   h2 {
     font-family:var(--mono); font-size:0.78rem; font-weight:600; letter-spacing:0.14em;
@@ -61,14 +65,12 @@
   h2::before { content:""; width:18px; height:2px; background:var(--wine); display:inline-block; }
   .about p { font-size:1rem; color:var(--ink); max-width:60ch; }
   .about p + p { margin-top:8px; color:var(--dim); font-size:0.92rem; }
-  /* chips */
   .chips { display:flex; flex-wrap:wrap; gap:8px; }
   .chip {
     font-family:var(--mono); font-size:0.8rem; color:var(--ink);
     background:var(--card); border:1px solid var(--line); border-radius:6px; padding:6px 12px;
   }
   .chip.acc { border-color:rgba(124,31,51,0.45); color:var(--wine); background:rgba(124,31,51,0.06); }
-  /* repos */
   ul { list-style:none; }
   li.repo {
     background:var(--card); border:1px solid var(--line); border-radius:8px;
@@ -81,7 +83,6 @@
   li.repo .lang { font-family:var(--mono); font-size:0.72rem; color:var(--dim); }
   li.repo .stars { font-family:var(--mono); font-size:0.72rem; color:var(--dim); margin-left:auto; }
   li.repo .desc { margin-top:4px; font-size:0.88rem; color:var(--dim); }
-  /* stats */
   .stats { display:flex; gap:14px; flex-wrap:wrap; }
   .stat {
     flex:1; min-width:120px; text-align:center;
@@ -89,7 +90,6 @@
   }
   .stat b { display:block; font-family:var(--mono); font-size:1.5rem; color:var(--wine); }
   .stat span { font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
-  /* links */
   .links { display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
   .btn {
     font-family:var(--mono); font-size:0.88rem; text-decoration:none;
@@ -107,45 +107,52 @@
 <body>
 <div class="bar"></div>
 <main>
+  <div class="langbar" role="group" aria-label="language">
+    <button id="lang-en" onclick="setLang('en')">EN</button><button id="lang-ko" onclick="setLang('ko')">한국어</button>
+  </div>
+
   <header class="head">
     <img class="avatar" src="https://avatars.githubusercontent.com/u/946434?v=4" alt="Dong-ha, Lee" width="104" height="104">
     <div class="who">
       <h1 id="u-name">Dong-ha, Lee</h1>
       <div class="handle" id="u-login">@ldh0227</div>
-      <div class="role" id="u-role"><b>Malware &amp; Security Researcher</b> · <span id="u-company">Trellix</span></div>
+      <div class="role"><b data-i18n="role">Malware &amp; Security Researcher</b> · <span id="u-company">Trellix</span></div>
       <div class="role" id="u-chips" style="font-size:0.82rem">Bundang, Korea · since 2011</div>
     </div>
   </header>
 
   <div class="term" aria-hidden="true">
     <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ whoami</div>
-    <div class="out">malware &amp; security researcher <span class="dim">//</span> trellix</div>
+    <div>malware &amp; security researcher <span class="dim">//</span> trellix</div>
     <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ cat focus.txt</div>
-    <div class="out">reverse engineering <span class="dim">·</span> deobfuscation <span class="dim">·</span> binary emulation <span class="dim">·</span> sandbox telemetry</div>
+    <div>reverse engineering <span class="dim">·</span> deobfuscation <span class="dim">·</span> emulation <span class="dim">·</span> sandbox telemetry</div>
     <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ <span class="dim">▌</span></div>
   </div>
 
   <section class="about">
-    <h2>About</h2>
+    <h2 data-i18n="about_h">About</h2>
     <p id="u-bio">Malware &amp; Security Researcher.
 I like python, javascript and automation.</p>
-    <p>Building tooling across the analysis pipeline — deobfuscation, emulation, and dynamic monitoring.</p>
+    <p data-i18n="about2">Building tooling across the analysis pipeline — deobfuscation, emulation, and dynamic monitoring.</p>
   </section>
 
   <section>
-    <h2>Focus</h2>
+    <h2 data-i18n="focus_h">Focus</h2>
     <div class="chips">
-      <span class="chip acc">Malware Analysis</span>
-      <span class="chip acc">Reverse Engineering</span>
-      <span class="chip acc">Deobfuscation</span>
-      <span class="chip acc">Binary Emulation</span>
-      <span class="chip">Sandbox Telemetry</span>
-      <span class="chip">Automation</span>
+      <span class="chip acc" data-i18n="f1">Malware Analysis</span>
+      <span class="chip acc" data-i18n="f2">Reverse Engineering</span>
+      <span class="chip acc" data-i18n="f3">Deobfuscation</span>
+      <span class="chip acc" data-i18n="f4">Binary Emulation</span>
+      <span class="chip acc" data-i18n="f5">CI/CD</span>
+      <span class="chip acc" data-i18n="f6">Automation</span>
+      <span class="chip" data-i18n="f7">Security Audit</span>
+      <span class="chip" data-i18n="f8">Applied AI</span>
+      <span class="chip" data-i18n="f9">Sandbox Telemetry</span>
     </div>
   </section>
 
   <section>
-    <h2>Languages</h2>
+    <h2 data-i18n="lang_h">Languages</h2>
     <div class="chips">
       <span class="chip">Python</span>
       <span class="chip">JavaScript</span>
@@ -157,23 +164,23 @@ I like python, javascript and automation.</p>
   </section>
 
   <section>
-    <h2>Selected Work</h2>
-    <ul>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/cuckoomon">cuckoomon</a><span class="lang">C</span><span class="stars" data-star="cuckoomon">★ 1</span></div><div class="desc" data-desc="cuckoomon">Cuckoo Sandbox Monitor Component</div></li>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/Trellix_CM_Automation">Trellix_CM_Automation</a><span class="lang">Python</span><span class="stars" data-star="Trellix_CM_Automation">★ 0</span></div><div class="desc" data-desc="Trellix_CM_Automation">Security operations automation</div></li>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/ai-engineering-from-scratch">ai-engineering-from-scratch</a><span class="lang">Python</span><span class="stars" data-star="ai-engineering-from-scratch">★ 0</span></div><div class="desc" data-desc="ai-engineering-from-scratch">Learn it. Build it. Ship it for others.</div></li>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/VS_LIBEMU">VS_LIBEMU</a><span class="lang">C++</span><span class="stars" data-star="VS_LIBEMU">★ 4</span></div><div class="desc" data-desc="VS_LIBEMU">Libemu-based binary emulation</div></li>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/DarunGrim">DarunGrim</a><span class="lang">Python</span><span class="stars" data-star="DarunGrim">★ 1</span></div><div class="desc" data-desc="DarunGrim">Research tooling</div></li>
-      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/de4dot">de4dot</a><span class="lang">C#</span><span class="stars" data-star="de4dot">★ 1</span></div><div class="desc" data-desc="de4dot">.NET deobfuscation</div></li>
+    <h2 data-i18n="work_h">Selected Work</h2>
+    <ul id="repo-list">
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/cuckoomon">cuckoomon</a><span class="lang">C</span><span class="stars" data-star="cuckoomon">★ 1</span></div><div class="desc" data-desc="cuckoomon" data-i18n="d_cuckoomon">Cuckoo Sandbox Monitor Component</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/Trellix_CM_Automation">Trellix_CM_Automation</a><span class="lang">Python</span><span class="stars" data-star="Trellix_CM_Automation">★ 0</span></div><div class="desc" data-desc="Trellix_CM_Automation" data-i18n="d_trellix">Security operations automation</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/ai-engineering-from-scratch">ai-engineering-from-scratch</a><span class="lang">Python</span><span class="stars" data-star="ai-engineering-from-scratch">★ 0</span></div><div class="desc" data-desc="ai-engineering-from-scratch" data-i18n="d_aieng">Learn it. Build it. Ship it for others.</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/VS_LIBEMU">VS_LIBEMU</a><span class="lang">C++</span><span class="stars" data-star="VS_LIBEMU">★ 4</span></div><div class="desc" data-desc="VS_LIBEMU" data-i18n="d_vslibemu">Libemu-based binary emulation</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/DarunGrim">DarunGrim</a><span class="lang">Python</span><span class="stars" data-star="DarunGrim">★ 1</span></div><div class="desc" data-desc="DarunGrim" data-i18n="d_darungrim">Research tooling</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/de4dot">de4dot</a><span class="lang">C#</span><span class="stars" data-star="de4dot">★ 1</span></div><div class="desc" data-desc="de4dot" data-i18n="d_de4dot">.NET deobfuscation</div></li>
     </ul>
   </section>
 
   <section>
-    <h2>Stats</h2>
+    <h2 data-i18n="stats_h">Stats</h2>
     <div class="stats">
-      <div class="stat"><b id="s-repos">70</b><span>Repos</span></div>
-      <div class="stat"><b id="s-followers">7</b><span>Followers</span></div>
-      <div class="stat"><b id="s-following">20</b><span>Following</span></div>
+      <div class="stat"><b id="s-repos">70</b><span data-i18n="st_repos">Repos</span></div>
+      <div class="stat"><b id="s-followers">7</b><span data-i18n="st_followers">Followers</span></div>
+      <div class="stat"><b id="s-following">20</b><span data-i18n="st_following">Following</span></div>
     </div>
   </section>
 
@@ -182,8 +189,64 @@ I like python, javascript and automation.</p>
     <a class="btn ghost" href="https://marosec.com/">marosec.com ↗</a>
   </div>
 </main>
-<footer>profile mirror of <a href="https://github.com/ldh0227">github.com/ldh0227</a> · served from marosec.dev</footer>
+<footer><span data-i18n="foot">profile mirror of</span> <a href="https://github.com/ldh0227">github.com/ldh0227</a> · <span data-i18n="foot2">served from marosec.dev</span></footer>
 <script>
+var I18N = {
+  en: {
+    role: "Malware & Security Researcher",
+    about_h: "About",
+    about2: "Building tooling across the analysis pipeline — deobfuscation, emulation, and dynamic monitoring.",
+    focus_h: "Focus",
+    f1: "Malware Analysis", f2: "Reverse Engineering", f3: "Deobfuscation", f4: "Binary Emulation",
+    f5: "CI/CD", f6: "Automation", f7: "Security Audit", f8: "Applied AI", f9: "Sandbox Telemetry",
+    lang_h: "Languages",
+    work_h: "Selected Work",
+    stats_h: "Stats",
+    st_repos: "Repos", st_followers: "Followers", st_following: "Following",
+    foot: "profile mirror of", foot2: "served from marosec.dev",
+    d_cuckoomon: "Cuckoo Sandbox Monitor Component",
+    d_trellix: "Security operations automation",
+    d_aieng: "Learn it. Build it. Ship it for others.",
+    d_vslibemu: "Libemu-based binary emulation",
+    d_darungrim: "Research tooling",
+    d_de4dot: ".NET deobfuscation"
+  },
+  ko: {
+    role: "멀웨어 & 보안 리서처",
+    about_h: "소개",
+    about2: "분석 파이프라인 전반의 도구를 만듭니다 — 디옵퍼페이션, 에뮬레이션, 동적 모니터링.",
+    focus_h: "전문 분야",
+    f1: "멀웨어 분석", f2: "리버싱", f3: "디옵퍼페이션", f4: "바이너리 에뮬레이션",
+    f5: "CI/CD", f6: "자동화", f7: "보안 감사", f8: "AI 활용", f9: "샌드박스 티메트리",
+    lang_h: "언어",
+    work_h: "주요 프로젝트",
+    stats_h: "통계",
+    st_repos: "레포", st_followers: "팔로워", st_following: "팔로잉",
+    foot: "프로필 미러 — ", foot2: "marosec.dev에서 서빙",
+    d_cuckoomon: "Cuckoo Sandbox 모니터 컴포넌트",
+    d_trellix: "보안 운영 자동화",
+    d_aieng: "배우고, 만들고, 나눕니다.",
+    d_vslibemu: "libemu 기반 바이너리 에뮬레이션",
+    d_darungrim: "리서치 툴링",
+    d_de4dot: ".NET 디옵퍼페이터"
+  }
+};
+var cur = "en";
+try { cur = localStorage.getItem("marosec-lang") || "en"; } catch (e) {}
+function setLang(l) {
+  cur = l;
+  try { localStorage.setItem("marosec-lang", l); } catch (e) {}
+  var dict = I18N[l] || I18N.en;
+  document.querySelectorAll("[data-i18n]").forEach(function (el) {
+    var k = el.getAttribute("data-i18n");
+    if (dict[k] != null) el.textContent = dict[k];
+  });
+  document.getElementById("lang-en").classList.toggle("on", l === "en");
+  document.getElementById("lang-ko").classList.toggle("on", l === "ko");
+  document.documentElement.lang = (l === "ko") ? "ko" : "en";
+}
+window.setLang = setLang;
+setLang(cur);
 (function () {
   var set = function (id, v) { var el = document.getElementById(id); if (el && v != null) el.textContent = v; };
   function refresh() {
