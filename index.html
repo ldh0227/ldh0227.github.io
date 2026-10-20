@@ -3,58 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dong-ha, Lee (ldh0227)</title>
-<meta name="description" content="Malware & Security Researcher at Trellix. Profile mirror of github.com/ldh0227">
-<meta property="og:title" content="Dong-ha, Lee (ldh0227)">
+<title>Dong-ha, Lee (ldh0227) — Malware &amp; Security Researcher</title>
+<meta name="description" content="Malware & Security Researcher at Trellix. Reverse engineering, deobfuscation, emulation, sandbox telemetry. Profile mirror of github.com/ldh0227">
+<meta property="og:title" content="Dong-ha, Lee (ldh0227) — Malware & Security Researcher">
 <meta property="og:description" content="Malware & Security Researcher at Trellix">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/946434?v=4">
 <link rel="icon" href="https://avatars.githubusercontent.com/u/946434?v=4">
 <style>
-  :root { --bg:#0d1117; --border:#30363d; --text:#e6edf3; --dim:#8b949e; --accent:#58a6ff; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  :root {
+    --bg1:#dfe2e7; --bg2:#c9ced6;
+    --card:#e9ebef;
+    --line:rgba(47,52,58,0.14);
+    --ink:#2e3338; --dim:#666d76;
+    --wine:#7c1f33; --wine-dark:#5c1526; --wine-light:#e2607a;
+    --term-bg:#23272d; --term-ink:#d6dade;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Roboto,sans-serif;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Roboto,sans-serif; line-height:1.6; }
-  main { max-width:560px; margin:0 auto; padding:72px 24px; text-align:center; }
-  img { width:112px; height:112px; border-radius:50%; border:2px solid var(--border); }
-  h1 { font-size:1.7rem; margin-top:20px; letter-spacing:-0.02em; }
-  .handle { font-family:var(--mono); color:var(--dim); }
-  .bio { margin-top:14px; color:var(--text); white-space:pre-line; }
-  .chips { margin-top:16px; font-family:var(--mono); font-size:0.8rem; color:var(--dim); }
-  .stats { margin-top:20px; font-family:var(--mono); font-size:0.85rem; color:var(--dim); }
-  .stats b { color:var(--text); font-weight:600; }
-  ul { list-style:none; margin-top:36px; text-align:left; }
-  li { padding:10px 0; border-bottom:1px solid var(--border); font-size:0.9rem; }
-  li a { color:var(--accent); text-decoration:none; font-family:var(--mono); }
-  li a:hover { text-decoration:underline; }
-  li .meta { color:var(--dim); font-family:var(--mono); font-size:0.75rem; margin-left:8px; white-space:nowrap; }
-  .links { margin-top:36px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .btn { font-family:var(--mono); font-size:0.85rem; color:var(--text); text-decoration:none; border:1px solid var(--border); border-radius:8px; padding:9px 16px; }
-  .btn:hover { border-color:var(--accent); }
+  body {
+    background:linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%) fixed;
+    background-image:
+      linear-gradient(rgba(47,52,58,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(47,52,58,0.035) 1px, transparent 1px),
+      linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+    background-size:32px 32px, 32px 32px, cover;
+    color:var(--ink); font-family:var(--sans); line-height:1.65;
+  }
+  .bar { height:4px; background:linear-gradient(90deg, var(--wine), var(--wine-dark)); }
+  main { max-width:720px; margin:0 auto; padding:56px 24px 40px; }
+  /* header */
+  .head { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  img.avatar { width:104px; height:104px; border-radius:50%; border:2px solid var(--wine); box-shadow:0 4px 14px rgba(47,52,58,0.18); }
+  .who h1 { font-size:1.85rem; letter-spacing:-0.02em; line-height:1.2; }
+  .who .handle { font-family:var(--mono); color:var(--wine); font-size:0.95rem; }
+  .who .role { margin-top:6px; color:var(--dim); font-size:0.95rem; }
+  .who .role b { color:var(--wine); font-weight:600; }
+  /* terminal card */
+  .term {
+    margin-top:28px; background:var(--term-bg); color:var(--term-ink);
+    border-radius:10px; border:1px solid rgba(47,52,58,0.4);
+    box-shadow:0 8px 24px rgba(47,52,58,0.22);
+    font-family:var(--mono); font-size:0.82rem; line-height:1.75;
+    padding:16px 20px; overflow-x:auto;
+  }
+  .term .p { color:var(--wine-light); }
+  .term .ok { color:#9fb4c7; }
+  .term .out { color:var(--term-ink); }
+  .term .dim { color:#7d858e; }
+  /* sections */
+  section { margin-top:34px; }
+  h2 {
+    font-family:var(--mono); font-size:0.78rem; font-weight:600; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--dim); margin-bottom:12px;
+    display:flex; align-items:center; gap:10px;
+  }
+  h2::before { content:""; width:18px; height:2px; background:var(--wine); display:inline-block; }
+  .about p { font-size:1rem; color:var(--ink); max-width:60ch; }
+  .about p + p { margin-top:8px; color:var(--dim); font-size:0.92rem; }
+  /* chips */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip {
+    font-family:var(--mono); font-size:0.8rem; color:var(--ink);
+    background:var(--card); border:1px solid var(--line); border-radius:6px; padding:6px 12px;
+  }
+  .chip.acc { border-color:rgba(124,31,51,0.45); color:var(--wine); background:rgba(124,31,51,0.06); }
+  /* repos */
+  ul { list-style:none; }
+  li.repo {
+    background:var(--card); border:1px solid var(--line); border-radius:8px;
+    padding:14px 18px; margin-bottom:10px;
+    border-left:3px solid var(--wine);
+  }
+  li.repo .top { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  li.repo a { font-family:var(--mono); font-size:0.95rem; color:var(--wine); text-decoration:none; font-weight:600; }
+  li.repo a:hover { text-decoration:underline; }
+  li.repo .lang { font-family:var(--mono); font-size:0.72rem; color:var(--dim); }
+  li.repo .stars { font-family:var(--mono); font-size:0.72rem; color:var(--dim); margin-left:auto; }
+  li.repo .desc { margin-top:4px; font-size:0.88rem; color:var(--dim); }
+  /* stats */
+  .stats { display:flex; gap:14px; flex-wrap:wrap; }
+  .stat {
+    flex:1; min-width:120px; text-align:center;
+    background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 10px;
+  }
+  .stat b { display:block; font-family:var(--mono); font-size:1.5rem; color:var(--wine); }
+  .stat span { font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
+  /* links */
+  .links { display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
+  .btn {
+    font-family:var(--mono); font-size:0.88rem; text-decoration:none;
+    padding:11px 20px; border-radius:8px;
+  }
+  .btn.solid { background:var(--wine); color:#f4f5f7; border:1px solid var(--wine-dark); }
+  .btn.solid:hover { background:var(--wine-dark); }
+  .btn.ghost { color:var(--ink); border:1px solid rgba(47,52,58,0.3); }
+  .btn.ghost:hover { border-color:var(--wine); color:var(--wine); }
   footer { text-align:center; padding:0 0 48px; font-family:var(--mono); font-size:0.72rem; color:var(--dim); }
-  footer a { color:var(--accent); text-decoration:none; }
+  footer a { color:var(--wine); text-decoration:none; }
+  @media (max-width:560px){ .head{gap:16px} .who h1{font-size:1.5rem} .stat{min-width:96px} }
 </style>
 </head>
 <body>
+<div class="bar"></div>
 <main>
-  <img src="https://avatars.githubusercontent.com/u/946434?v=4" alt="Dong-ha, Lee" width="112" height="112">
-  <h1 id="u-name">Dong-ha, Lee</h1>
-  <div class="handle" id="u-login">@ldh0227</div>
-  <p class="bio" id="u-bio">Malware &amp; Security Researcher.
+  <header class="head">
+    <img class="avatar" src="https://avatars.githubusercontent.com/u/946434?v=4" alt="Dong-ha, Lee" width="104" height="104">
+    <div class="who">
+      <h1 id="u-name">Dong-ha, Lee</h1>
+      <div class="handle" id="u-login">@ldh0227</div>
+      <div class="role" id="u-role"><b>Malware &amp; Security Researcher</b> · <span id="u-company">Trellix</span></div>
+      <div class="role" id="u-chips" style="font-size:0.82rem">Bundang, Korea · since 2011</div>
+    </div>
+  </header>
+
+  <div class="term" aria-hidden="true">
+    <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ whoami</div>
+    <div class="out">malware &amp; security researcher <span class="dim">//</span> trellix</div>
+    <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ cat focus.txt</div>
+    <div class="out">reverse engineering <span class="dim">·</span> deobfuscation <span class="dim">·</span> binary emulation <span class="dim">·</span> sandbox telemetry</div>
+    <div><span class="p">ldh@marosec</span>:<span class="ok">~</span>$ <span class="dim">▌</span></div>
+  </div>
+
+  <section class="about">
+    <h2>About</h2>
+    <p id="u-bio">Malware &amp; Security Researcher.
 I like python, javascript and automation.</p>
-  <div class="chips" id="u-chips">Trellix · Bundang, Korea · since 2011</div>
-  <div class="stats"><b id="s-repos">69</b> repos · <b id="s-followers">7</b> followers · <b id="s-following">20</b> following</div>
-  <ul id="repos">
-    <li><a href="https://github.com/ldh0227/VS_LIBEMU">VS_LIBEMU</a><span class="meta">C++ · <span data-star="VS_LIBEMU">★ 4</span></span></li>
-    <li><a href="https://github.com/ldh0227/cuckoomon">cuckoomon</a><span class="meta">C · <span data-star="cuckoomon">★ 1</span></span></li>
-    <li><a href="https://github.com/ldh0227/DarunGrim">DarunGrim</a><span class="meta">Python · <span data-star="DarunGrim">★ 1</span></span></li>
-    <li><a href="https://github.com/ldh0227/de4dot">de4dot</a><span class="meta">C# · <span data-star="de4dot">★ 1</span></span></li>
-    <li><a href="https://github.com/ldh0227/MAP">MAP</a><span class="meta">Visual Basic · <span data-star="MAP">★ 1</span></span></li>
-  </ul>
+    <p>Building tooling across the analysis pipeline — deobfuscation, emulation, and dynamic monitoring.</p>
+  </section>
+
+  <section>
+    <h2>Focus</h2>
+    <div class="chips">
+      <span class="chip acc">Malware Analysis</span>
+      <span class="chip acc">Reverse Engineering</span>
+      <span class="chip acc">Deobfuscation</span>
+      <span class="chip acc">Binary Emulation</span>
+      <span class="chip">Sandbox Telemetry</span>
+      <span class="chip">Automation</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Languages</h2>
+    <div class="chips">
+      <span class="chip">Python</span>
+      <span class="chip">JavaScript</span>
+      <span class="chip">C++</span>
+      <span class="chip">C#</span>
+      <span class="chip">Visual Basic</span>
+      <span class="chip">PowerShell</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected Work</h2>
+    <ul>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/cuckoomon">cuckoomon</a><span class="lang">C</span><span class="stars" data-star="cuckoomon">★ 1</span></div><div class="desc" data-desc="cuckoomon">Cuckoo Sandbox Monitor Component</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/Trellix_CM_Automation">Trellix_CM_Automation</a><span class="lang">Python</span><span class="stars" data-star="Trellix_CM_Automation">★ 0</span></div><div class="desc" data-desc="Trellix_CM_Automation">Security operations automation</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/ai-engineering-from-scratch">ai-engineering-from-scratch</a><span class="lang">Python</span><span class="stars" data-star="ai-engineering-from-scratch">★ 0</span></div><div class="desc" data-desc="ai-engineering-from-scratch">Learn it. Build it. Ship it for others.</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/VS_LIBEMU">VS_LIBEMU</a><span class="lang">C++</span><span class="stars" data-star="VS_LIBEMU">★ 4</span></div><div class="desc" data-desc="VS_LIBEMU">Libemu-based binary emulation</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/DarunGrim">DarunGrim</a><span class="lang">Python</span><span class="stars" data-star="DarunGrim">★ 1</span></div><div class="desc" data-desc="DarunGrim">Research tooling</div></li>
+      <li class="repo"><div class="top"><a href="https://github.com/ldh0227/de4dot">de4dot</a><span class="lang">C#</span><span class="stars" data-star="de4dot">★ 1</span></div><div class="desc" data-desc="de4dot">.NET deobfuscation</div></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Stats</h2>
+    <div class="stats">
+      <div class="stat"><b id="s-repos">70</b><span>Repos</span></div>
+      <div class="stat"><b id="s-followers">7</b><span>Followers</span></div>
+      <div class="stat"><b id="s-following">20</b><span>Following</span></div>
+    </div>
+  </section>
+
   <div class="links">
-    <a class="btn" href="https://github.com/ldh0227">GitHub ↗</a>
-    <a class="btn" href="https://marosec.com/">marosec.com ↗</a>
+    <a class="btn solid" href="https://github.com/ldh0227">GitHub ↗</a>
+    <a class="btn ghost" href="https://marosec.com/">marosec.com ↗</a>
   </div>
 </main>
-<footer>profile mirror of <a href="https://github.com/ldh0227">github.com/ldh0227</a></footer>
+<footer>profile mirror of <a href="https://github.com/ldh0227">github.com/ldh0227</a> · served from marosec.dev</footer>
 <script>
 (function () {
   var set = function (id, v) { var el = document.getElementById(id); if (el && v != null) el.textContent = v; };
@@ -69,8 +197,8 @@ I like python, javascript and automation.</p>
         set("u-name", u.name || u.login);
         set("u-login", "@" + u.login);
         if (u.bio) set("u-bio", u.bio);
+        if (u.company) set("u-company", u.company.replace(/^\@/, ""));
         var chips = [];
-        if (u.company) chips.push(u.company.replace(/^\@/, ""));
         if (u.location) chips.push(u.location.split(",").slice(-2).join(",").trim());
         chips.push("since " + (u.created_at || "").slice(0, 4));
         set("u-chips", chips.join(" · "));
@@ -81,6 +209,8 @@ I like python, javascript and automation.</p>
       if (Array.isArray(res[1])) res[1].forEach(function (r) {
         var s = document.querySelector('[data-star="' + r.name + '"]');
         if (s) s.textContent = "★ " + r.stargazers_count;
+        var d = document.querySelector('[data-desc="' + r.name + '"]');
+        if (d && r.description) d.textContent = r.description;
       });
     }).catch(function () {});
   }
